@@ -30,6 +30,14 @@ $_SESSION['item_id'] = $product_id;
 echo "ADD_CART_EXISTS = ";
 var_dump(function_exists('add_cart'));
 
+echo "<pre>";
+echo "FUNCTION EXISTS: ";
+var_dump(function_exists('add_cart'));
+
+echo "\nGET DATA:\n";
+print_r($_GET);
+echo "</pre>";
+
 if (function_exists('add_cart')) {
     add_cart($_SESSION['item_id']);
 }
