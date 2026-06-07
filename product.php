@@ -24,6 +24,9 @@ if (!$data || empty($data)) {
 $_SESSION['item_id'] = $product_id;
 
 /* Add to cart */
+echo "ADD_CART_EXISTS = ";
+var_dump(function_exists('add_cart'));
+
 if (function_exists('add_cart')) {
     add_cart($_SESSION['item_id']);
 }
