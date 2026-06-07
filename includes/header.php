@@ -31,7 +31,7 @@
                             <ul class="dropdown">
                                 <li><a href="store.php?cat=medicine">Medicine</a></li>
                                 <li><a href="store.php?cat=self-care">Self Care</a></li>
-                                <li><a href="store.php?cat=medicine">Machine</a></li>
+                                <li><a href="store.php?cat=machine">Machine</a></li>
 
                             </ul>
                         </li>
