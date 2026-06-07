@@ -6,9 +6,16 @@ include "includes/head.php"
 
   <div class="site-wrap">
     <?php
-    include "includes/header.php";
-    $data = get_item();
+   include "includes/header.php";
+
+$product_id = $_GET['product_id'];
+$data = get_item($product_id);
+
+$_SESSION['item_id'] = $product_id;
+
+if (function_exists('add_cart')) {
     add_cart($_SESSION['item_id']);
+}
     ?>
 
     <div class="bg-light py-3">
