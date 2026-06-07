@@ -665,3 +665,31 @@ function all_products_reverse()
 {
     return array_reverse(all_products());
 }
+function add_order()
+{
+    if (isset($_GET['order'])) {
+
+        $num = sizeof($_SESSION['cart']);
+
+        date_default_timezone_set("Asia/Kolkata");
+        $date = date("Y-m-d");
+
+        for ($i = 0; $i < $num; $i++) {
+
+            $item_id = $_SESSION['cart'][$i]['item_id'];
+
+            $user_id = $_SESSION['user_id'];
+
+            $quantity = $_SESSION['cart'][$i]['quantity'];
+
+            $query = "INSERT INTO orders
+            (user_id,item_id,order_quantity,order_date)
+            VALUES
+            ('$user_id','$item_id','$quantity','$date')";
+
+            single_query($query);
+        }
+
+        unset($_SESSION['cart']);
+    }
+}
