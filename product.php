@@ -84,9 +84,7 @@ if (function_exists('add_cart')) {
        name="product_id"
        value="<?php echo $product_id; ?>">
 
-            <input type="hidden"
-                   name="product_id"
-                   value="<?php echo $data[0]['item_id']; ?>">
+            
 
             <div class="mb-5">
                 <div class="input-group mb-3" style="max-width:220px;">
