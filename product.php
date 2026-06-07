@@ -80,6 +80,9 @@ if (function_exists('add_cart')) {
         </h6>
 
         <form action="product.php" method="GET">
+<input type="hidden"
+       name="product_id"
+       value="<?php echo $product_id; ?>">
 
             <input type="hidden"
                    name="product_id"

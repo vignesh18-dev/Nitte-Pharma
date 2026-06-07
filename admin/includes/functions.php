@@ -464,3 +464,107 @@ function delete_order()
     }
 }
 // order functions (end)
+// CART FUNCTIONS
+
+function add_cart($item_id)
+{
+    if (isset($_GET['cart'])) {
+
+        $quantity = isset($_GET['quantity']) ? (int)$_GET['quantity'] : 1;
+
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array();
+        }
+
+        $found = false;
+
+        foreach ($_SESSION['cart'] as &$item) {
+            if ($item['item_id'] == $item_id) {
+                $item['quantity'] += $quantity;
+                $found = true;
+                break;
+            }
+        }
+
+        if (!$found) {
+            $_SESSION['cart'][] = array(
+                'item_id' => $item_id,
+                'quantity' => $quantity
+            );
+        }
+
+        get_redirect("cart.php");
+    }
+}
+
+function get_cart()
+{
+    $cart_data = array();
+
+    if (!empty($_SESSION['cart'])) {
+
+        foreach ($_SESSION['cart'] as $item) {
+
+            $id = $item['item_id'];
+
+            $query = "SELECT * FROM item WHERE item_id='$id'";
+
+            $cart_data[] = query($query);
+        }
+    }
+
+    return $cart_data;
+}
+
+function delete_from_cart()
+{
+    if (isset($_GET['delete'])) {
+
+        $delete_id = $_GET['delete'];
+
+        foreach ($_SESSION['cart'] as $key => $item) {
+
+            if ($item['item_id'] == $delete_id) {
+
+                unset($_SESSION['cart'][$key]);
+
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+
+                break;
+            }
+        }
+
+        get_redirect("cart.php");
+    }
+}
+
+function total_price($data)
+{
+    $total = 0;
+
+    if (!empty($data)) {
+
+        foreach ($data as $index => $item) {
+
+            if (isset($item[0])) {
+
+                $total +=
+                    $item[0]['item_price'] *
+                    $_SESSION['cart'][$index]['quantity'];
+            }
+        }
+    }
+
+    return $total;
+}
+
+function delivery_fees($data)
+{
+    $total = total_price($data);
+
+    if ($total >= 200) {
+        return 0;
+    }
+
+    return 40;
+}
