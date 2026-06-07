@@ -10,9 +10,7 @@ include "includes/head.php"
     <?php
 include "includes/header.php";
 
-echo "<pre>";
-print_r($_SESSION['cart']);
-echo "</pre>";
+
 ?>
 
     <div class="bg-light py-3">

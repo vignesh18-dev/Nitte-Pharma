@@ -90,7 +90,11 @@ function message()
             echo "   <div class='alert alert-danger' role='alert'>
         please don't leave anything empty !!!
       </div>";
-        }
+        }elseif ($_SESSION['message'] == "signup_success") {
+    echo "<div class='alert alert-success' role='alert'>
+    Account created successfully. Please login.
+    </div>";
+}
         unset($_SESSION['message']);
     }
 }
@@ -139,41 +143,59 @@ function login()
 function singUp()
 {
     if (isset($_POST['singUp'])) {
-        $email  = trim(strtolower($_POST['email']));
-        
-        $fname  = trim($_POST['Fname']);
-        $lname = trim($_POST['Lname']);
+
+        $email   = trim(strtolower($_POST['email']));
+        $fname   = trim($_POST['Fname']);
+        $lname   = trim($_POST['Lname']);
         $address = trim($_POST['address']);
-        $passwd = trim($_POST['passwd']);
-        if (empty($email) or empty($passwd) or empty($address) or empty($fname) or empty($lname)) {
+        $passwd  = trim($_POST['passwd']);
+
+        if (
+            empty($email) ||
+            empty($passwd) ||
+            empty($address) ||
+            empty($fname) ||
+            empty($lname)
+        ) {
             $_SESSION['message'] = "empty_err";
             post_redirect("signUp.php");
-        } elseif (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) {
+        }
+
+        if (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) {
             $_SESSION['message'] = "signup_err_email";
             post_redirect("signUp.php");
-        } elseif (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,30}$/', $passwd)) {
+        }
+
+        if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,30}$/', $passwd)) {
             $_SESSION['message'] = "signup_err_password";
             post_redirect("signUp.php");
         }
-        $query = "SELECT email FROM user ";
+
+        $query = "SELECT email FROM user WHERE email='$email'";
         $data = query($query);
-        $count = sizeof($data);
-        for ($i = 0; $i < $count; $i++) {
-            if ($email == $data[$i]['email']) {
-                $_SESSION['message'] = "usedEmail";
-                post_redirect("signUp.php");
-            }
+
+        if (!empty($data)) {
+            $_SESSION['message'] = "usedEmail";
+            post_redirect("signUp.php");
         }
-        $query = "INSERT INTO user (email ,user_fname ,user_lname , user_address,user_password ) VALUES('$email', '$fname' ,'$lname','$address' ,'$passwd')";
+
+        $query = "INSERT INTO user
+        (email, user_fname, user_lname, user_address, user_password)
+        VALUES
+        ('$email', '$fname', '$lname', '$address', '$passwd')";
+
         $queryStatus = single_query($query);
-        $query = "SELECT user_id FROM user WHERE email='$email' ";
-        $data = query($query);
-        $_SESSION['user_id'] = $data[0]['user_id'];
-        if ($queryStatus == "done") {
-            post_redirect("index.php");
-        } 
-    else {
+
+        if ($queryStatus) {
+
+            $_SESSION['message'] = "signup_success";
+
+            post_redirect("login.php");
+
+        } else {
+
             $_SESSION['message'] = "wentWrong";
+
             post_redirect("signUp.php");
         }
     }
