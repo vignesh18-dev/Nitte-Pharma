@@ -27,7 +27,11 @@ include "includes/head.php"
         <div class="row">
 
           <?php
-          $data = search_item(); // FIXED
+          if (isset($_GET['cat'])) {
+    $data = get_category_products();
+} else {
+    $data = search_item();
+}
 
           if ($data != "no result" && !empty($data)) {
 
