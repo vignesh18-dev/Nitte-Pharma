@@ -640,3 +640,28 @@ function delivery_fees($data)
 
     return 40;
 }
+function check_user($id)
+{
+    $query = "SELECT user_id FROM user WHERE user_id='$id'";
+    $row = query($query);
+
+    if (empty($row)) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+function get_item_id($id)
+{
+    $query = "SELECT * FROM item WHERE item_id='$id'";
+    return query($query);
+}
+function all_products()
+{
+    $query = "SELECT * FROM item ORDER BY RAND()";
+    return query($query);
+}
+function all_products_reverse()
+{
+    return array_reverse(all_products());
+}
