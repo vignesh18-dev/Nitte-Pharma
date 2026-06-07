@@ -100,7 +100,12 @@ include "includes/head.php"
             }
           } elseif (empty($data)) {
 
-            $data = all_items(); // FIXED
+    if (isset($_GET['cat'])) {
+        echo "<h3>No products found in this category</h3>";
+        return;
+    }
+
+    $data = all_items(); // FIXED
             $num = sizeof($data);
 
             for ($i = 0; $i < $num; $i++) {

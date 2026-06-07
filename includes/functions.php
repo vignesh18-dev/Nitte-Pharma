@@ -463,3 +463,16 @@ function delete_order()
     }
 }
 // order functions (end)
+function get_category_products()
+{
+    if (isset($_GET['cat'])) {
+
+        $cat = $_GET['cat'];
+
+        $query = "SELECT * FROM item WHERE item_cat='$cat'";
+
+        return query($query);
+    }
+
+    return all_items();
+}
