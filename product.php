@@ -1,8 +1,7 @@
 <?php
 include "includes/head.php";
 
-echo "<h1 style='color:red'>PRODUCT.PHP UPDATED</h1>";
-die();
+
 ?>
 
 <body>
