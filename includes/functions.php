@@ -719,14 +719,3 @@ function add_order()
         unset($_SESSION['cart']);
     }
 }
-function check_user($id)
-{
-    $query = "SELECT user_id FROM user WHERE user_id='$id'";
-    $row = query($query);
-
-    if (empty($row)) {
-        return 0;
-    }
-
-    return 1;
-}
