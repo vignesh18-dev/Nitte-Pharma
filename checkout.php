@@ -7,10 +7,27 @@ include "includes/head.php"
   <div class="site-wrap">
 
 
-    <?php
-    include "includes/header.php";
-    $data = get_user($_SESSION['user_id']);
-    ?>
+<?php
+include "includes/header.php";
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// Fetch logged-in user details
+$data = get_user($user_id);
+
+if (empty($data)) {
+    die("User not found.");
+}
+?>
 
     <div class="bg-light py-3">
       <div class="container">

@@ -244,9 +244,13 @@ function edit_user($id)
 }
 function get_user($id)
 {
-    $query = "SELECT user_id ,user_fname ,user_lname ,email ,user_address FROM user WHERE user_id=$id";
-    $data = query($query);
-    return $data;
+    $id = (int)$id;
+
+    $query = "SELECT user_id, user_fname, user_lname, email, user_address
+              FROM user
+              WHERE user_id = $id";
+
+    return query($query);
 }
 function check_email_user($email)
 {
