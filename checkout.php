@@ -10,12 +10,10 @@ include "includes/head.php"
 <?php
 include "includes/header.php";
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    get_redirect("login.php");
     exit();
 }
 
