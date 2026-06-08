@@ -78,10 +78,7 @@
                 <a href="" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
           
             </div>
-            <div class="navbar-nav">
-        <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="logout.php">Sign out</a>
-        </div>
+           
 
     </div>
         </div>
