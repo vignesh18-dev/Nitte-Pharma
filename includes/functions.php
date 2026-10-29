@@ -1,10 +1,5 @@
 <?php
-$connection = mysqli_connect(
-    "sql12.freesqldatabase.com",
-    "sql12829668",
-    "jiuEaKNj1X",
-    "sql12829668"
-);// $connection = mysqli_connect("localhost", "id18666014_pharma1", "tXU!y/6D\EH_{<[6", "id18666014_pharma");
+require_once __DIR__ . '/db.php';
     // query functions (start)
 function query($query)
 {
